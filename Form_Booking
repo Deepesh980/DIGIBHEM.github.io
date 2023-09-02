@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+
+    <Style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        body{display:flex;justify-content:center;font-size:1rem;font-family: "Poppins", sans-serif;background-color: #ff7a7a;color:white;padding:3rem}
+
+        main{max-width:350px;display:flex;flex-direction:column;align-items: center;} 
+        
+        .required-field::after{ content:"*";color: red;}
+
+        .form{display:flex;flex-direction:column;align-items:normal;padding:1.2rem;border-radius:0.8rem;box-shadow: 0 8px 0px rgba(0 0 0/0.15);
+              color:#b9b6d3;background-color: white;} 
+
+        .button{cursor:pointer;background-color: #4f84f0;color: #000;border-radius: 5px;box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+                padding: 10px;padding-left: 20px;padding-right: 20px;font-size: larger;margin-left: 270px;}
+
+        
+
+    </Style>
+     
+    <script>
+        function Cost_Calculations (form) 
+        {
+          
+            let Days= form.Days.value;  // No. of days        
+            let Persons=form.Persons.value;  // No. of Persons
+
+            //Room rent Calculation
+            let Room_rent=document.getElementById("room_cost");  //room cost display
+            let a=document.getElementById("Room_Type");
+
+            //Amenities Cost Calculation
+            let Amen_Rent=document.getElementById("amen_cost");  //amenities cost display
+            let b=document.getElementById("Amenities")
+
+            //Total Amount Calculation
+            let Total_Cost=document.getElementById("total_cost");
+            
+            //Advance Amount Deposited
+            let Advance=form.advance.value; 
+
+            // Balance Amount Calculation
+            let Balance=document.getElementById("balance");
+
+            if(a.selectedIndex==1)
+            {
+                if(b.selectedIndex==1 && Persons<=2)
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[1].value*Days)+( Amen_Rent.innerHTML=b.options[1].value*Days))
+                    -Advance;
+                }
+                else
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[1].value*Days+((Persons-2)*Days*1000))+
+                    ( Amen_Rent.innerHTML=b.options[1].value*Days))-Advance;
+                }
+
+                if(b.selectedIndex==2 && Persons<=2)
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[1].value*Days)+( Amen_Rent.innerHTML=b.options[2].value*Days))
+                    -Advance;
+                }
+                else
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[1].value*Days+((Persons-2)*Days*1000))+
+                    ( Amen_Rent.innerHTML=b.options[2].value*Days))-Advance;
+                }
+
+                if(b.selectedIndex==3 && Persons<=2)
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[1].value*Days)+( Amen_Rent.innerHTML=b.options[3].value*Days))
+                    -Advance;
+                }
+                else
+                {
+                    Balance.innerHTML=((Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[1].value*Days+((Persons-2)*Days*1000))
+                    +( Amen_Rent.innerHTML=b.options[3].value*Days))-Advance);
+                }
+            }
+
+            if(a.selectedIndex==2)
+            {
+                if(b.selectedIndex==1 && Persons<=2)
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[2].value*Days)+( Amen_Rent.innerHTML=b.options[1].value*Days))
+                    -Advance;
+                }
+                else
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[2].value*Days+((Persons-2)*Days*1000))
+                    +( Amen_Rent.innerHTML=b.options[1].value*Days))-Advance;
+                }
+
+                if(b.selectedIndex==2 && Persons<=2)
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[2].value*Days)+( Amen_Rent.innerHTML=b.options[2].value*Days))
+                    -Advance;
+                }
+                else
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[2].value*Days+((Persons-2)*Days*1000))
+                    +( Amen_Rent.innerHTML=b.options[2].value*Days))-Advance;
+                }
+
+                if(b.selectedIndex==3 && Persons<=2)
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[2].value*Days)+( Amen_Rent.innerHTML=b.options[3].value*Days))
+                    -Advance;
+                }
+                else
+                {
+                    Balance.innerHTML=(Total_Cost.innerHTML=(Room_rent.innerHTML=a.options[2].value*Days+((Persons-2)*Days*1000))
+                    +( Amen_Rent.innerHTML=b.options[3].value*Days))-Advance;
+                }
+            }
+
+        }
+    </script>
+    
+</head>
+<body>
+        <form method="get" class="form">
+        
+        Enter Your Name:<span class="required-field"></span>  <input type="text" placeholder="Customer Name" required><br>
+        Check-in Date:<span class="required-field"></span>    <input type="date" required><br>
+        Days Staying:<span class="required-field"></span>     <input type="number" name="Days" value="" placeholder="Days Staying required"><br>
+        Number Of Persons:<span class="required-field"></span><input type="number" name="Persons" value="" placeholder="Total No. Of Persons" required><br><br>
+        
+        Select Room Type
+        <Select id="Room_Type">
+            <option value="Select">select</option>
+            <option value="2500" name="DELUX">Delux Room</option>
+            <option value="4000" name="SUITE">Suite Room</option>
+            
+        </Select><br>
+
+        Please Choose Amenities
+        <select id="Amenities">
+            <option value="Select">Select</option>
+            <option value="1000">AC</option>
+            <option value="300">Locker</option>
+            <option value="1300">Both</option>
+        </select><br><br>
+
+        <div class="Rates">
+            <h1>CHARGES</h1>
+            <div class="Delux_Room">DELUX ROOM : 2500/- Per Day</div>
+            <div class="Suite_ROOM">SUITE ROOM : 4000/- Per Day</div>
+            <h1>AMENITIES CHARGES</h1>
+            <div class="AC">AC CHARGES : 1000/- Per Day</div>
+            <div class="locker">LOCKER CHARGER : 300/- Per day</div>
+        </div>
+
+        <div class="extra">
+            <h1>
+                ADDITIONAL CHARGES
+            </h1>
+            <p>UPTO 2 People: No Changes In Cost</p>
+            <p>Per Day Cost For Extra Person:100 /-</p><br>
+            Advance Payment:<span class="required-field"> </span> <input type="number" name="advance" value="" placeholder="Advance Deposited" required><br><br>
+
+            <input class="button" type="button" value="SUBMIT" onclick="Cost_Calculations(this.form)">
+            
+        </div><br><br>
+
+        <div class="Payment">
+            Total Room Cost:<p id="room_cost"></p><br>
+            Total Amenities Cost:<p id="amen_cost"></p><br>
+            Estimated Total Cost:<p id="total_cost"></p><br>
+            Balance Payment:<p id="balance"></p><br>
+
+            <input class="button" type="button" value="PAY & BOOK"> 
+        </div>
+
+        
+        </form>
+    </div>
+</body>
+</html>
